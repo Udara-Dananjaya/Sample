@@ -1,0 +1,85 @@
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+  <canvas id="myChart" height="129" style="display: block; width: 487px; height: 129px;" width="487"
+    class="chartjs-render-monitor"></canvas>
+
+  <script type="text/javascript">
+    const data = [
+      { date: '1', type: 'income', amount: 900 },
+      { date: '2', type: 'expense', amount: 100 },
+      { date: '3', type: 'expense', amount: 830 },
+      { date: '4', type: 'expense', amount: 50 },
+      { date: '5', type: 'expense', amount: 560 },
+      { date: '6', type: 'income', amount: 600 }
+    ];
+
+    var worldChart = new Chart(document.getElementById('myChart'), {
+      type: 'line',
+      data: {
+        
+        datasets: [
+          {
+            label: 'Expenses',
+            fill: false,
+            lineTension: 0.5,
+            backgroundColor: 'rgba(75,192,192,1)',
+            borderColor: 'rgba(0,0,0,1)',
+            borderWidth: 2,
+            xAxisID: "x-axis-1",
+            data: data.filter(o => o.type == 'expense').map(o => ({ x: o.date, y: o.amount }))
+          },
+          {
+            label: 'Income',
+            fill: false,
+            lineTension: 0.5,
+            backgroundColor: 'blue',
+            borderColor: 'red',
+            borderWidth: 2,
+             xAxisID: "x-axis-2",
+            data: data.filter(o => o.type == 'income').map(o => ({ x: o.date, y: o.amount }))
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            id: "x-axis-1",
+            labelString: 's',
+            labels:data.filter(o => o.type == 'expense').map(o => (o.date)),
+            scaleLabel: {
+                display: true,
+                labelString: 'Period 1'
+              }
+           
+          },
+          {
+            id: "x-axis-2",
+            labelString: 'b',
+            labels:data.filter(o => o.type == 'income').map(o => (o.date)),
+            scaleLabel: {
+                display: true,
+                labelString: 'Period 2'
+              }
+            
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
